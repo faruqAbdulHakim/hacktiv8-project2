@@ -4,6 +4,7 @@
   "description": "Hacktiv8 - Intro To NodeJS - Final Project 2 - MyGramm",
   "main": "app.js",
   "scripts": {
+    "dev": "nodemon bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Faruq, Perdana, Rio",
