@@ -6,21 +6,40 @@ const { Model } = require('sequelize');
  */
 module.exports = (sequelize, DataTypes) => {
   class Photo extends Model {
-    static associate(models) {}
+    static associate(models) {
+      Photo.belongsTo(models.User);
+    }
   }
   Photo.init(
     {
       title: {
         type: DataTypes.STRING,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
       caption: {
         type: DataTypes.TEXT,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
       poster_image_url: {
         type: DataTypes.TEXT,
+        validate: {
+          isUrl: true,
+          notNull: true,
+          notEmpty: true,
+        },
       },
       UserId: {
         type: DataTypes.INTEGER,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
     },
     {

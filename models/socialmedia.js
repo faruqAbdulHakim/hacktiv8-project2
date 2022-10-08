@@ -6,17 +6,33 @@ const { Model } = require('sequelize');
  */
 module.exports = (sequelize, DataTypes) => {
   class SocialMedia extends Model {
-    static associate(models) {}
+    static associate(models) {
+      SocialMedia.belongsTo(models.User);
+    }
   }
   SocialMedia.init(
     {
       name: {
         type: DataTypes.STRING,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
       social_media_url: {
         type: DataTypes.STRING,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
-      UserId: DataTypes.INTEGER,
+      UserId: {
+        type: DataTypes.INTEGER,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
     },
     {
       sequelize,
