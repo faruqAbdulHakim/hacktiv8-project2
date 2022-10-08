@@ -6,7 +6,9 @@ const { Model } = require('sequelize');
  */
 module.exports = (sequelize, DataTypes) => {
   class Photo extends Model {
-    static associate(models) {}
+    static associate(models) {
+      Photo.belongsTo(models.User);
+    }
   }
   Photo.init(
     {

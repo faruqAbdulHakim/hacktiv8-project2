@@ -6,7 +6,9 @@ const { Model } = require('sequelize');
  */
 module.exports = (sequelize, DataTypes) => {
   class SocialMedia extends Model {
-    static associate(models) {}
+    static associate(models) {
+      SocialMedia.belongsTo(models.User);
+    }
   }
   SocialMedia.init(
     {
