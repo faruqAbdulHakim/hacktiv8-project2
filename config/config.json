@@ -13,6 +13,13 @@
     "host": "localhost",
     "dialect": "postgres"
   },
+  "development_rio": {
+    "username": "postgres",
+    "password": "1234567",
+    "database": "MyGramDev",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
   "test": {
     "username": "postgres",
     "password": "postgres",
