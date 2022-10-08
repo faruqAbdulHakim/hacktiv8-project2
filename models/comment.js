@@ -12,12 +12,24 @@ module.exports = (sequelize, DataTypes) => {
     {
       UserId: {
         type: DataTypes.INTEGER,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
       PhotoId: {
         type: DataTypes.INTEGER,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
       comment: {
         type: DataTypes.TEXT,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
     },
     {

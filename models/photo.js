@@ -12,15 +12,32 @@ module.exports = (sequelize, DataTypes) => {
     {
       title: {
         type: DataTypes.STRING,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
       caption: {
         type: DataTypes.TEXT,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
       poster_image_url: {
         type: DataTypes.TEXT,
+        validate: {
+          isUrl: true,
+          notNull: true,
+          notEmpty: true,
+        },
       },
       UserId: {
         type: DataTypes.INTEGER,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
     },
     {
