@@ -3,7 +3,7 @@ const userController = require('./../controllers/UserController');
 
 usersRouter.post('/register', userController.register);
 
-// TODO: create POST to /login
+usersRouter.post('/login', userController.login);
 
 // TODO: create PUT to /:userId
 
