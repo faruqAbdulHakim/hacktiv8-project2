@@ -11,10 +11,9 @@ const authMiddleware = (req, res, next) => {
     if (!authorization) throw { name: 'Invalid Token' };
 
     token = authorization.split(' ')[1];
-    const { id } = verify(token);
+    const { id, email } = verify(token);
     if (!id) throw { name: 'Unauthorized' };
-
-    res.locals.user = { id };
+    res.locals.user = { id, email };
     next();
   } catch (error) {
     next(error);
