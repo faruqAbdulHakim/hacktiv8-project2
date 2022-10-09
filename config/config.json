@@ -7,8 +7,8 @@
     "dialect": "postgres"
   },
   "development_perdana": {
-    "username": "perdanaph",
-    "password": "postgre",
+    "username": "postgres",
+    "password": "postgres",
     "database": "MyGramDev",
     "host": "localhost",
     "dialect": "postgres"
