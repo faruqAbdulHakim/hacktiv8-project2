@@ -64,7 +64,6 @@ class UserController {
       const token = sign({
         id: user.id,
         email: user.email,
-        username: user.username,
       });
       res.status(200).json({ message: 'Success You are login', token });
     } catch (error) {
