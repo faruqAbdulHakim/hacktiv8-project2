@@ -98,7 +98,13 @@ class UserController {
    * @param {import('express').NextFunction} next
    */
   static async delete(req, res, next) {
-    // TODO: create user delete
+    const { userId } = req.params;
+    try {
+      const user = await User.destroy({ where: { id: userId } });
+      res.status(200).json({ message: 'Success Destroy' });
+    } catch (error) {
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
   }
 }
 
