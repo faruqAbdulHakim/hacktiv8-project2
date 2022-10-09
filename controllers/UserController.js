@@ -77,7 +77,19 @@ class UserController {
    * @param {import('express').NextFunction} next
    */
   static async update(req, res, next) {
-    // TODO: create user update
+    const { userId } = req.params;
+    const { email, full_name, username, profile_image_url, age, phone_number } =
+      req.body;
+    try {
+      const user = await User.update(
+        { email, full_name, username, profile_image_url, age, phone_number },
+        { where: { id: userId }, returning: true }
+      );
+      res.status(200).json({ message: 'Success', data: user });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
   }
 
   /**
