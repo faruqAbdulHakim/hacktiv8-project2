@@ -5,7 +5,8 @@ class PhotoController {
    * @param {import('express').NextFunction} next
    */
   static async findAll(req, res, next) {
-    // TODO: create photo findAll
+    try {
+    } catch (error) {}
   }
 
   /**
@@ -15,6 +16,8 @@ class PhotoController {
    */
   static async create(req, res, next) {
     // TODO: create photo insert
+    try {
+    } catch (error) {}
   }
 
   /**
