@@ -6,7 +6,6 @@ usersRouter.post('/register', userController.register);
 usersRouter.post('/login', userController.login);
 usersRouter.use(authMiddleware);
 usersRouter.put('/:userId', userController.update);
-
-// TODO: create DELETE to /:userId
+usersRouter.delete('/:userId', userController.delete);
 
 module.exports = usersRouter;
