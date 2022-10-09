@@ -29,7 +29,18 @@ class UserController {
 	 * @param {import('express').NextFunction} next
 	 */
 	static async login(req, res, next) {
-		// TODO: create user login
+		const { email, password } = req.body;
+		try {
+			const user = await User.findOne({ where: { email } });
+			if (!user) throw { name: 'userNotFound' };
+
+			if (!comparePassword(password, user.password)) throw { name: 'WrongPassword' };
+
+			const token = sign({ id: user.id, email: user.email, username: user.username });
+			res.status(200).json({ message: 'Success You are login', token });
+		} catch (error) {
+			next(error);
+		}
 	}
 
 	/**
