@@ -1,6 +1,7 @@
 const usersRouter = require('express').Router();
+const userController = require('./../controllers/UserController');
 
-// TODO: create POST to /register
+usersRouter.post('/register', userController.register);
 
 // TODO: create POST to /login
 
