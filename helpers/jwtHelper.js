@@ -12,7 +12,6 @@ exports.sign = (payload, options) => {
   return jwt.sign(payload, process.env.SECRET_TOKEN, options);
 };
 
-
 /**
  *
  * @param {string} token
