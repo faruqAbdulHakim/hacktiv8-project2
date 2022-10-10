@@ -5,7 +5,7 @@ const authMiddleware = require('./../middlewares/authMiddleware');
 photosRouter.use(authMiddleware);
 photosRouter.get('/', PhotoController.findAll);
 photosRouter.post('/', PhotoController.create);
-photosRouter.put('/:photoID', PhotoController.update);
-photosRouter.delete('/:photoID', PhotoController.delete);
+photosRouter.put('/:photoId', PhotoController.update);
+photosRouter.delete('/:photoId', PhotoController.delete);
 
 module.exports = photosRouter;

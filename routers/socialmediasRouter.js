@@ -1,11 +1,11 @@
 const socialMediasRouter = require('express').Router();
+const authMiddleware = require('./../middlewares/authMiddleware');
+const SocialMediaController = require('./../controllers/SocialMediaController');
 
-// TODO: create GET to /
-
-// TODO: create POST to /
-
-// TODO: create PUT to /:socialMediaId
-
-// TODO: create DELETE to /:socialMediaId
+socialMediasRouter.use(authMiddleware);
+socialMediasRouter.get('/', SocialMediaController.findAll);
+socialMediasRouter.post('/', SocialMediaController.create);
+socialMediasRouter.put('/:socialMediaId', SocialMediaController.update);
+socialMediasRouter.delete('/:socialMediaId', SocialMediaController.delete);
 
 module.exports = socialMediasRouter;

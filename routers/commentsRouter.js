@@ -5,15 +5,7 @@ const CommentController = require('./../controllers/CommentController');
 commentsRouter.use(authMiddleware);
 commentsRouter.get('/', CommentController.findAll);
 commentsRouter.post('/', CommentController.create);
-commentsRouter.put('/:commentID', CommentController.update);
-commentsRouter.delete('/:commentID', CommentController.delete);
-
-// TODO: create GET to /
-
-// TODO: create POST to /
-
-// TODO: create PUT to /:commentId
-
-// TODO: create DELETE to /:commentId
+commentsRouter.put('/:commentId', CommentController.update);
+commentsRouter.delete('/:commentId', CommentController.delete);
 
 module.exports = commentsRouter;
