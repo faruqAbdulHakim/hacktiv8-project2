@@ -1,3 +1,5 @@
+const { SocialMedia, User } = require('./../models/index');
+
 class SocialMediaController {
   /**
    * @param {Request} req
@@ -5,7 +7,23 @@ class SocialMediaController {
    * @param {import('express').NextFunction} next
    */
   static async findAll(req, res, next) {
-    // TODO: create social media findAll
+    try {
+      const socialMedias = await SocialMedia.findAll({
+        attributes: {
+          exclude: ['UserId'],
+        },
+        include: [
+          {
+            model: User,
+            attributes: ['id', 'username', 'profile_image_url'],
+          },
+        ],
+      });
+      res.status(200).json({ social_medias: socialMedias });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
   }
 
   /**
@@ -14,7 +32,19 @@ class SocialMediaController {
    * @param {import('express').NextFunction} next
    */
   static async create(req, res, next) {
-    // TODO: create social media insert
+    const { name, social_media_url } = req.body;
+    const UserId = req.user.id;
+    try {
+      const result = await SocialMedia.create({
+        name,
+        social_media_url,
+        UserId,
+      });
+      res.status(201).json(result);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
   }
 
   /**
