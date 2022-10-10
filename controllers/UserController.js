@@ -67,6 +67,7 @@ class UserController {
       });
       res.status(200).json({ message: 'Success You are login', token });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
