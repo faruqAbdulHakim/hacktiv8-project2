@@ -10,6 +10,18 @@ const errorMiddleware = (error, req, res, next) => {
 
   // TODO: update errorMiddleware
   switch (error.name) {
+    case 'BadRequest':
+      code = 400;
+      message = 'Bad Request';
+      break;
+    case 'SequelizeValidationError':
+      code = 400;
+      message = 'Bad Request, Validation Error';
+      break;
+    case 'SequelizeUniqueConstraintError':
+      code = 400;
+      message = 'Bad Request, Unique Constraint Error';
+      break;
     case 'JsonWebTokenError':
       code = 401;
       message = 'Invalid Token';

@@ -18,6 +18,7 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
+        unique: true,
       },
       username: {
         type: Sequelize.STRING,
@@ -32,7 +33,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       phone_number: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
