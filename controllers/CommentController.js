@@ -1,3 +1,5 @@
+const { Comment, Photo, User } = require('./../models/index');
+
 class CommentController {
   /**
    * @param {Request} req
@@ -5,7 +7,27 @@ class CommentController {
    * @param {import('express').NextFunction} next
    */
   static async findAll(req, res, next) {
-    // TODO: create comment findAll
+    try {
+      const comments = await Comment.findAll({
+        attributes: {
+          exclude: ['PhotoId', 'UserId'],
+        },
+        include: [
+          {
+            model: Photo,
+            attributes: ['id', 'title', 'caption', 'poster_image_url'],
+          },
+          {
+            model: User,
+            attributes: ['id', 'username', 'profile_image_url', 'phone_number'],
+          },
+        ],
+      });
+      res.status(200).json({ comments: comments });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
   }
 
   /**
@@ -14,7 +36,19 @@ class CommentController {
    * @param {import('express').NextFunction} next
    */
   static async create(req, res, next) {
-    // TODO: create comment insert
+    const { comment, PhotoId } = req.body;
+    const UserId = req.user.id;
+    try {
+      const result = await Comment.create({
+        comment,
+        PhotoId,
+        UserId,
+      });
+      res.status(201).json(result);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
   }
 
   /**
