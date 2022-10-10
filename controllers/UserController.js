@@ -10,40 +10,38 @@ class UserController {
    * @param {import('express').NextFunction} next
    */
   static async register(req, res, next) {
-    const {
-      email,
-      full_name,
-      username,
-      password,
-      profile_image_url,
-      age,
-      phone_number,
-    } = req.body;
     try {
-      const hashPass = hashPassword(password);
-      const user = await User.create({
-        email,
-        full_name,
-        username,
-        password: hashPass,
-        profile_image_url,
-        age,
-        phone_number,
+      const requiredProps = [
+        'email',
+        'full_name',
+        'username',
+        'password',
+        'profile_image_url',
+        'age',
+        'phone_number',
+      ];
+      const body = {};
+      for (const prop of requiredProps) {
+        if (!req.body[prop]) throw { name: 'BadRequest' };
+        body[prop] = req.body[prop];
+      }
+
+      const hashedPassword = hashPassword(body.password);
+      const userCreated = await User.create({
+        ...body,
+        password: hashedPassword,
       });
+
+      const user = { ...userCreated.dataValues };
+      delete user['id'];
+      delete user['password'];
+      delete user['createdAt'];
+      delete user['updatedAt'];
       res.status(201).json({
-        message: 'Success',
-        user: {
-          email,
-          full_name,
-          username,
-          profile_image_url,
-          age,
-          phone_number,
-        },
+        user: user,
       });
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      next(error);
     }
   }
 
