@@ -1,4 +1,3 @@
-const { where } = require('sequelize');
 const { SocialMedia, User } = require('./../models/index');
 
 class SocialMediaController {
@@ -53,17 +52,24 @@ class SocialMediaController {
    * @param {import('express').NextFunction} next
    */
   static async update(req, res, next) {
-    const { socialMediasId } = req.params;
+    const { socialMediaId } = req.params;
     const { name, social_media_url } = req.body;
     try {
+      // Authorization
+      const userCheck = await SocialMedia.findOne({
+        where: { id: socialMediaId },
+      });
+      if (userCheck.UserId != req.user.id) throw { name: 'Forbidden' };
+
       const socialMedia = await SocialMedia.update(
         { name, social_media_url },
-        { where: { id: socialMediasId }, returning: true }
+        { where: { id: socialMediaId }, returning: true }
       );
       res
         .status(200)
         .json({ message: 'Success Update', social_media: socialMedia });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
@@ -74,10 +80,15 @@ class SocialMediaController {
    * @param {import('express').NextFunction} next
    */
   static async delete(req, res, next) {
-    const { socialMediasId } = req.params;
+    const { socialMediaId } = req.params;
     try {
+      // Authorization
+      const userCheck = await SocialMedia.findOne({
+        where: { id: socialMediaId },
+      });
+      if (userCheck.UserId != req.user.id) throw { name: 'Forbidden' };
       const socialMedia = await SocialMedia.destroy({
-        where: { id: socialMediasId },
+        where: { id: socialMediaId },
       });
       res.status(200).json({ message: 'Success Destroy' });
     } catch (error) {
