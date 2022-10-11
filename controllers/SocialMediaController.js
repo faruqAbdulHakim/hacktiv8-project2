@@ -1,3 +1,4 @@
+const { where } = require('sequelize');
 const { SocialMedia, User } = require('./../models/index');
 
 class SocialMediaController {
@@ -9,6 +10,7 @@ class SocialMediaController {
   static async findAll(req, res, next) {
     try {
       const socialMedias = await SocialMedia.findAll({
+        where: { UserId: req.user.id },
         attributes: {
           exclude: ['UserId'],
         },
@@ -51,7 +53,19 @@ class SocialMediaController {
    * @param {import('express').NextFunction} next
    */
   static async update(req, res, next) {
-    // TODO: create social media update
+    const { socialMediasId } = req.params;
+    const { name, social_media_url } = req.body;
+    try {
+      const socialMedia = await SocialMedia.update(
+        { name, social_media_url },
+        { where: { id: socialMediasId }, returning: true }
+      );
+      res
+        .status(200)
+        .json({ message: 'Success Update', social_media: socialMedia });
+    } catch (error) {
+      next(error);
+    }
   }
 
   /**
@@ -60,7 +74,15 @@ class SocialMediaController {
    * @param {import('express').NextFunction} next
    */
   static async delete(req, res, next) {
-    // TODO: create social media delete
+    const { socialMediasId } = req.params;
+    try {
+      const socialMedia = await SocialMedia.destroy({
+        where: { id: socialMediasId },
+      });
+      res.status(200).json({ message: 'Success Destroy' });
+    } catch (error) {
+      next(error);
+    }
   }
 }
 
