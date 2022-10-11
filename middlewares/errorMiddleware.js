@@ -38,6 +38,10 @@ const errorMiddleware = (error, req, res, next) => {
       code = 401;
       message = 'Unauthorized';
       break;
+    case 'Forbidden':
+      code = 403;
+      message = 'Forbidden, you does not have acces to this resource';
+      break;
     // case 'Authorization Error':
     //   code = 403;
     //   message = 'does not have permision to access Photo';
