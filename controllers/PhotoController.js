@@ -9,6 +9,7 @@ class PhotoController {
   static async findAll(req, res, next) {
     try {
       const photos = await Photo.findAll({
+        where: { UserId: req.user.id },
         attributes: {
           exclude: ['UserId'],
         },
@@ -21,6 +22,7 @@ class PhotoController {
       });
       res.status(200).json({ Photos: photos });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
