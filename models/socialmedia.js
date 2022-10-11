@@ -16,24 +16,36 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notNull: true,
-          notEmpty: true,
+          notNull: {
+            msg: 'Name cannot be omitted',
+          },
+          notEmpty: {
+            msg: 'Name cannot be an empty string',
+          },
         },
       },
       social_media_url: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notNull: true,
-          notEmpty: true,
+          notNull: {
+            msg: 'Social Media URL cannot be omitted',
+          },
+          notEmpty: {
+            msg: 'Social Media URL cannot be an empty string',
+          },
         },
       },
       UserId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notNull: true,
-          notEmpty: true,
+          notNull: {
+            msg: 'User ID cannot be omitted',
+          },
+          notEmpty: {
+            msg: 'User ID cannot be an empty string',
+          },
         },
       },
     },

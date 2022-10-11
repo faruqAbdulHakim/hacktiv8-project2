@@ -25,8 +25,7 @@ class CommentController {
       });
       res.status(200).json({ comments: comments });
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      next(error);
     }
   }
 
@@ -46,8 +45,7 @@ class CommentController {
       });
       res.status(201).json(result);
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      next(error);
     }
   }
 

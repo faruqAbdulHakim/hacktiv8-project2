@@ -21,8 +21,7 @@ class PhotoController {
       });
       res.status(200).json({ Photos: photos });
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      next(error);
     }
   }
 
@@ -43,8 +42,7 @@ class PhotoController {
       });
       res.status(201).json(result);
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      next(error);
     }
   }
 
