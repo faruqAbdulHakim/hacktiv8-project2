@@ -38,6 +38,14 @@ const errorMiddleware = (error, req, res, next) => {
       code = 401;
       message = 'Unauthorized';
       break;
+    // case 'Authorization Error':
+    //   code = 403;
+    //   message = 'does not have permision to access Photo';
+    //   break;
+    // case 'dataNotFound':
+    //   code = 404;
+    //   message = 'Data Not Found';
+    //   break;
     case 'userNotFound':
       code = 404;
       message = 'Fail, Login User not found';
