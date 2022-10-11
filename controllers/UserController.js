@@ -87,7 +87,7 @@ class UserController {
       res.status(200).json({ message: 'Success', data: user });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      next(error);
     }
   }
 
@@ -102,7 +102,7 @@ class UserController {
       const user = await User.destroy({ where: { id: userId } });
       res.status(200).json({ message: 'Success Destroy' });
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      next(error);
     }
   }
 }

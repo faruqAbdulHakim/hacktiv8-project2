@@ -16,33 +16,51 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notNull: true,
-          notEmpty: true,
+          notNull: {
+            msg: 'Title cannot be omittted',
+          },
+          notEmpty: {
+            msg: 'Title cannot be an empty string',
+          },
         },
       },
       caption: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
-          notNull: true,
-          notEmpty: true,
+          notNull: {
+            msg: 'Caption cannot be omitted',
+          },
+          notEmpty: {
+            msg: 'Caption cannot be an empty string',
+          },
         },
       },
       poster_image_url: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
-          isUrl: true,
-          notNull: true,
-          notEmpty: true,
+          isUrl: {
+            msg: 'Wrong Url format',
+          },
+          notNull: {
+            msg: 'Poster Image URL cannot be omitted',
+          },
+          notEmpty: {
+            msg: 'Poster Image URL cannot be an empty string',
+          },
         },
       },
       UserId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notNull: true,
-          notEmpty: true,
+          notNull: {
+            msg: 'User ID cannot be omitted',
+          },
+          notEmpty: {
+            msg: 'User ID cannot be an empty string',
+          },
         },
       },
     },

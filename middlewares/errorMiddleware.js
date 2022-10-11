@@ -16,11 +16,15 @@ const errorMiddleware = (error, req, res, next) => {
       break;
     case 'SequelizeValidationError':
       code = 400;
-      message = 'Bad Request, Validation Error';
+      message = error.errors.map((e) => e.message);
       break;
     case 'SequelizeUniqueConstraintError':
       code = 400;
       message = 'Bad Request, Unique Constraint Error';
+      break;
+    case 'SequelizeForeignKeyConstraintError':
+      code = 400;
+      message = 'Bad Request, FeorignKey Constraint Error';
       break;
     case 'JsonWebTokenError':
       code = 401;

@@ -17,24 +17,36 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notNull: true,
-          notEmpty: true,
+          notNull: {
+            msg: 'User ID cannot be omitted',
+          },
+          notEmpty: {
+            msg: 'User ID cannot be an empty string',
+          },
         },
       },
       PhotoId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notNull: true,
-          notEmpty: true,
+          notNull: {
+            msg: 'Photo ID cannot be omitted',
+          },
+          notEmpty: {
+            msg: 'Photo ID cannot be an empty string',
+          },
         },
       },
       comment: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
-          notNull: true,
-          notEmpty: true,
+          notNull: {
+            msg: 'Comment cannot be omitted',
+          },
+          notEmpty: {
+            msg: 'Comment cannot be an empty string',
+          },
         },
       },
     },

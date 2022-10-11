@@ -21,8 +21,7 @@ class SocialMediaController {
       });
       res.status(200).json({ social_medias: socialMedias });
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      next(error);
     }
   }
 
@@ -42,8 +41,7 @@ class SocialMediaController {
       });
       res.status(201).json(result);
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      next(error);
     }
   }
 
