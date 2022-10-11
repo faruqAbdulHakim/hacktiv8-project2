@@ -9,6 +9,7 @@ class CommentController {
   static async findAll(req, res, next) {
     try {
       const comments = await Comment.findAll({
+        where: { UserId: req.user.id },
         attributes: {
           exclude: ['PhotoId', 'UserId'],
         },
@@ -55,7 +56,21 @@ class CommentController {
    * @param {import('express').NextFunction} next
    */
   static async update(req, res, next) {
-    // TODO: create comment update
+    const { commentId } = req.params;
+    const { comment } = req.body;
+    try {
+      const checkUserid = await Comment.findOne({
+        where: { id: commentId },
+      });
+      if (checkUserid.UserId != req.user.id) throw { name: 'Forbidden' };
+      const commentUpdate = await Comment.update(
+        { comment },
+        { where: { id: commentId }, returning: true }
+      );
+      res.status(200).json({ comment: commentUpdate });
+    } catch (error) {
+      next(error);
+    }
   }
 
   /**
@@ -64,7 +79,17 @@ class CommentController {
    * @param {import('express').NextFunction} next
    */
   static async delete(req, res, next) {
-    // TODO: create comment delete
+    const { commentId } = req.params;
+    try {
+      const checkUserid = await Comment.findOne({ where: { id: commentId } });
+      if (checkUserid.UserId != req.user.id) throw { name: 'Forbidden' };
+      const deleteComment = await Comment.destroy({ where: { id: commentId } });
+      res
+        .status(200)
+        .json({ message: 'Your comment has been successfully deleted' });
+    } catch (error) {
+      next(error);
+    }
   }
 }
 
