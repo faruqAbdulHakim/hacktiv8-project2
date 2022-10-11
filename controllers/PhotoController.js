@@ -52,15 +52,17 @@ class PhotoController {
    * @param {import('express').NextFunction} next
    */
   static async update(req, res, next) {
-    const { id } = req.params;
+    const { photoId } = req.params;
     const { title, caption, poster_image_url } = req.body;
-    const data = { title, caption, poster_image_url };
     try {
-      const result = await Photo.update(data, {
-        where: { id },
-        returning: true,
-      });
-      res.status(201).json(result);
+      const result = await Photo.update(
+        { title, caption, poster_image_url },
+        {
+          where: { id: photoId },
+          returning: true,
+        }
+      );
+      res.status(200).json(result);
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: 'Internal Server Error' });
@@ -73,7 +75,15 @@ class PhotoController {
    * @param {import('express').NextFunction} next
    */
   static async delete(req, res, next) {
-    // TODO: create photo delete
+    const { photoId } = req.params;
+    try {
+      const result = await Photo.destroy({ where: { id: photoId } });
+      res
+        .status(200)
+        .json({ message: 'Your photo has been successfully deleted' });
+    } catch (error) {
+      next(error);
+    }
   }
 }
 
