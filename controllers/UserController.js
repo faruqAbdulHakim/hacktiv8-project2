@@ -53,6 +53,7 @@ class UserController {
   static async login(req, res, next) {
     try {
       const { email, password } = req.body;
+      if (!email || !password) throw { name: 'BadRequest' };
       const user = await User.findOne({ where: { email } });
       if (!user) throw { name: 'userNotFound' };
 
