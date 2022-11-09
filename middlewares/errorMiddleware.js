@@ -54,6 +54,14 @@ const errorMiddleware = (error, req, res, next) => {
       code = 404;
       message = 'Fail, Login User not found';
       break;
+    case 'CommentNotFound':
+      code = 404;
+      message = 'Fail, Comment not found';
+      break;
+    case 'SocialMediaNotFound':
+      code = 404;
+      message = 'Fail, Social Media not found';
+      break;
     case 'WrongPassword':
       code = 400;
       message = 'Fail, Your password incorrect';

@@ -59,17 +59,15 @@ class SocialMediaController {
       const userCheck = await SocialMedia.findOne({
         where: { id: socialMediaId },
       });
+      if (!userCheck) throw { name: 'SocialMediaNotFound' };
       if (userCheck.UserId != req.user.id) throw { name: 'Forbidden' };
 
       const socialMedia = await SocialMedia.update(
         { name, social_media_url },
         { where: { id: socialMediaId }, returning: true }
       );
-      res
-        .status(200)
-        .json({ message: 'Success Update', social_media: socialMedia });
+      res.status(200).json({ social_media: socialMedia[1][0] });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -86,11 +84,14 @@ class SocialMediaController {
       const userCheck = await SocialMedia.findOne({
         where: { id: socialMediaId },
       });
+      if (!userCheck) throw { name: 'SocialMediaNotFound' };
       if (userCheck.UserId != req.user.id) throw { name: 'Forbidden' };
       const socialMedia = await SocialMedia.destroy({
         where: { id: socialMediaId },
       });
-      res.status(200).json({ message: 'Success Destroy' });
+      res
+        .status(200)
+        .json({ message: 'Social media has been successfully deleted' });
     } catch (error) {
       next(error);
     }
