@@ -22,7 +22,6 @@ class PhotoController {
       });
       res.status(200).json({ Photos: photos });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -37,9 +36,9 @@ class PhotoController {
     const UserId = req.user.id;
     try {
       const result = await Photo.create({
+        poster_image_url,
         title,
         caption,
-        poster_image_url,
         UserId,
       });
       res.status(201).json(result);
@@ -64,9 +63,10 @@ class PhotoController {
           returning: true,
         }
       );
-      res.status(200).json(result);
+      res.status(200).json({
+        photo: result[1][0],
+      });
     } catch (error) {
-      console.log(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
   }

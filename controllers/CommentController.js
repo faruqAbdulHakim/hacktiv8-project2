@@ -62,12 +62,13 @@ class CommentController {
       const checkUserid = await Comment.findOne({
         where: { id: commentId },
       });
+      if (!checkUserid) throw { name: 'CommentNotFound' };
       if (checkUserid.UserId != req.user.id) throw { name: 'Forbidden' };
       const commentUpdate = await Comment.update(
         { comment },
         { where: { id: commentId }, returning: true }
       );
-      res.status(200).json({ comment: commentUpdate });
+      res.status(200).json({ comment: commentUpdate[1][0] });
     } catch (error) {
       next(error);
     }
@@ -82,6 +83,7 @@ class CommentController {
     const { commentId } = req.params;
     try {
       const checkUserid = await Comment.findOne({ where: { id: commentId } });
+      if (!checkUserid) throw { name: 'CommentNotFound' };
       if (checkUserid.UserId != req.user.id) throw { name: 'Forbidden' };
       const deleteComment = await Comment.destroy({ where: { id: commentId } });
       res
