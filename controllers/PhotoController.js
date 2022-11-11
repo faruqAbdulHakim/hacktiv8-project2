@@ -1,4 +1,4 @@
-const { Photo, User } = require('./../models/index');
+const { Photo, User, Comment } = require('./../models/index');
 
 class PhotoController {
   /**
@@ -9,14 +9,13 @@ class PhotoController {
   static async findAll(req, res, next) {
     try {
       const photos = await Photo.findAll({
-        where: { UserId: req.user.id },
-        attributes: {
-          exclude: ['UserId'],
-        },
         include: [
           {
             model: User,
             attributes: ['id', 'username', 'profile_image_url'],
+          },
+          {
+            model: Comment,
           },
         ],
       });
@@ -62,6 +61,8 @@ class PhotoController {
     try {
       const { photoId } = req.params;
       const { title, caption, poster_image_url } = req.body;
+      if (!title || !caption || !poster_image_url) throw { name: 'BadRequest' };
+
       const result = await Photo.update(
         { title, caption, poster_image_url },
         {
@@ -69,7 +70,7 @@ class PhotoController {
           returning: true,
         }
       );
-      console.log(result);
+
       if (result[0] === 0) {
         res.status(400).json({
           message: 'No photos updated',
@@ -101,6 +102,11 @@ class PhotoController {
     }
   }
 
+  /**
+   * @param {Request} req
+   * @param {Response} res
+   * @param {import('express').NextFunction} next
+   */
   static async authorize(req, res, next) {
     try {
       const { photoId } = req.params;

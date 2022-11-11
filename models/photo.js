@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   class Photo extends Model {
     static associate(models) {
       Photo.belongsTo(models.User);
+      Photo.hasMany(models.Comment);
     }
   }
   Photo.init(

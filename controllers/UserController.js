@@ -11,28 +11,38 @@ class UserController {
    */
   static async register(req, res, next) {
     try {
-      const requiredProps = [
-        'email',
-        'full_name',
-        'username',
-        'password',
-        'profile_image_url',
-        'age',
-        'phone_number',
-      ];
-      const body = {};
-      for (const prop of requiredProps) {
-        if (!req.body[prop]) throw { name: 'BadRequest' };
-        body[prop] = req.body[prop];
-      }
+      const {
+        email,
+        full_name,
+        username,
+        password,
+        profile_image_url,
+        age,
+        phone_number,
+      } = req.body;
+      if (
+        !email ||
+        !full_name ||
+        !username ||
+        !password ||
+        !profile_image_url ||
+        !age ||
+        !phone_number
+      )
+        throw { message: 'BadRequest' };
 
-      const hashedPassword = hashPassword(body.password);
-      const userCreated = await User.create({
-        ...body,
+      const hashedPassword = hashPassword(password);
+      const createdUser = await User.create({
+        email,
+        full_name,
+        username,
         password: hashedPassword,
+        profile_image_url,
+        age,
+        phone_number,
       });
 
-      const user = { ...userCreated.dataValues };
+      const user = { ...createdUser.dataValues };
       delete user['id'];
       delete user['password'];
       delete user['createdAt'];
@@ -77,30 +87,33 @@ class UserController {
    */
   static async update(req, res, next) {
     try {
-      const { userId } = req.params;
-      // authorize
-      if (userId != req.user.id) throw { name: 'Forbidden' };
+      const {
+        email,
+        full_name,
+        username,
+        profile_image_url,
+        age,
+        phone_number,
+      } = req.body;
+      if (
+        !email ||
+        !full_name ||
+        !username ||
+        !profile_image_url ||
+        !age ||
+        !phone_number
+      )
+        throw { message: 'BadRequest' };
 
-      const requiredProps = [
-        'email',
-        'full_name',
-        'username',
-        'profile_image_url',
-        'age',
-        'phone_number',
-      ];
-      const body = {};
-      for (const prop of requiredProps) {
-        if (!req.body[prop]) throw { name: 'BadRequest' };
-        body[prop] = req.body[prop];
-      }
+      const updatedUser = await User.update(
+        { email, full_name, username, profile_image_url, age, phone_number },
+        {
+          where: { id: req.params.userId },
+          returning: true,
+        }
+      );
 
-      const userUpdated = await User.update(body, {
-        where: { id: userId },
-        returning: true,
-      });
-
-      const user = { ...userUpdated[1][0].dataValues };
+      const user = { ...updatedUser[1][0].dataValues };
       delete user['id'];
       delete user['password'];
       delete user['createdAt'];
@@ -119,14 +132,25 @@ class UserController {
    */
   static async delete(req, res, next) {
     try {
-      const { userId } = req.params;
-      // authorize
-      if (userId != req.user.id) throw { name: 'Forbidden' };
-
       await User.destroy({ where: { id: userId } });
       res
         .status(200)
         .json({ message: 'Your account has been successfully deleted' });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @param {Request} req
+   * @param {Response} res
+   * @param {import('express').NextFunction} next
+   */
+  static async authorize(req, res, next) {
+    try {
+      const { userId } = req.params;
+      if (userId != req.user.id) throw { name: 'Forbidden' };
+      next();
     } catch (error) {
       next(error);
     }
