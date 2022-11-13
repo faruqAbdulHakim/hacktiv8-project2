@@ -7,11 +7,11 @@ const { User } = require('../models/index');
  */
 async function authMiddleware(req, res, next) {
   try {
-    const authorization = req.headers['authorization'];
-    if (!authorization) throw { name: 'Invalid Token' };
+    const token = req.headers['token'];
+    if (!token) throw { name: 'Invalid Token' };
 
-    const token = authorization.split(' ')[1];
-    const { id, email } = verify(token);
+    const accessToken = token.split(' ')[1];
+    const { id, email } = verify(accessToken);
     const user = await User.findOne({ where: { id, email } });
     if (!user) throw { name: 'Unauthorized' };
     req.user = { id, email };
