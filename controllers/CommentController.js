@@ -51,7 +51,7 @@ class CommentController {
         PhotoId,
         UserId,
       });
-      res.status(201).json({ comment: result });
+      res.status(201).json(result);
     } catch (error) {
       next(error);
     }

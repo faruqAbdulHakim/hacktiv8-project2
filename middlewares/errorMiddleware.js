@@ -24,7 +24,7 @@ const errorMiddleware = (error, req, res, next) => {
       break;
     case 'SequelizeForeignKeyConstraintError':
       code = 400;
-      message = error.errors.map((e) => e.message);
+      message = 'PhotoId is not define';
       break;
     case 'JsonWebTokenError':
       code = 401;
