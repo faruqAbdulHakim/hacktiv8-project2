@@ -9,10 +9,6 @@ class SocialMediaController {
   static async findAll(req, res, next) {
     try {
       const socialMedias = await SocialMedia.findAll({
-        where: { UserId: req.user.id },
-        attributes: {
-          exclude: ['UserId'],
-        },
         include: [
           {
             model: User,
@@ -40,7 +36,7 @@ class SocialMediaController {
         social_media_url,
         UserId,
       });
-      res.status(201).json(result);
+      res.status(201).json({ social_media: result });
     } catch (error) {
       next(error);
     }
