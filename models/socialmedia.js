@@ -34,6 +34,9 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: 'Social Media URL cannot be an empty string',
           },
+          isUrl: {
+            msg: 'Social Media URL must be in URL format'
+          },
         },
       },
       UserId: {
