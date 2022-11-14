@@ -8,7 +8,6 @@ const errorMiddleware = (error, req, res, next) => {
   let code;
   let message;
 
-  // TODO: update errorMiddleware
   switch (error.name) {
     case 'BadRequest':
       code = 400;
@@ -59,6 +58,10 @@ const errorMiddleware = (error, req, res, next) => {
     case 'SocialMediaNotFound':
       code = 404;
       message = 'Fail, Social Media not found';
+      break;
+    case 'PageNotFound':
+      code = 404;
+      message = '404 Page Not Found';
       break;
     case 'WrongPassword':
       code = 400;
