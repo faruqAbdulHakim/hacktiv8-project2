@@ -10,6 +10,10 @@ router.use('/photos', photosRouter);
 router.use('/comments', commentsRouter);
 router.use('/socialmedias', socialMediasRouter);
 
+router.use((req, res, next) => {
+  next({ name: 'PageNotFound' });
+});
+
 router.use(errorMiddleware);
 
 module.exports = router;
