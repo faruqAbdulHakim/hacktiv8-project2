@@ -103,7 +103,7 @@ class UserController {
         !age ||
         !phone_number
       )
-        throw { message: 'BadRequest' };
+        throw { name: 'BadRequest' };
 
       const updatedUser = await User.update(
         { email, full_name, username, profile_image_url, age, phone_number },
