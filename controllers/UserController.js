@@ -132,6 +132,7 @@ class UserController {
    */
   static async delete(req, res, next) {
     try {
+      const { userId } = req.params;
       await User.destroy({ where: { id: userId } });
       res
         .status(200)
