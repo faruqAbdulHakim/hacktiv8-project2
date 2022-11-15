@@ -26,7 +26,7 @@ class PhotoController {
       });
       res.status(200).json({ photos });
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   }
 
