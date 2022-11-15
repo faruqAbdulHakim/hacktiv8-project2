@@ -29,7 +29,11 @@ const errorMiddleware = (error, req, res, next) => {
       break;
     case 'SequelizeForeignKeyConstraintError':
       code = 400;
-      message = error.errors.map((e) => e.message);
+      if (error.table === 'Comments' && error.index === 'photo_fk') {
+        message = "Fail to create comment. Can't find photo";
+      } else {
+        message = "Can't find relationship between table on database";
+      }
       break;
     case 'JsonWebTokenError':
       code = 401;
