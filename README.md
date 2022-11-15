@@ -33,8 +33,8 @@ $ npx sequelize db:migrate (to migration table on database)
 | --------------    | --------------------------------- |
 | USERS DOCS        | [Users](./docs/users.md)          |
 | PHOTOS DOCS       | [Photos](./docs/photos.md)        |
-| SOCIAL MEDIA DOCS | [Photos](./docs/socialMedia.md)   |
-| COMMENTS DOCS     | [Photos](./docs/comments.md)      |
+| SOCIAL MEDIA DOCS | [Social Medias](./docs/socialMedia.md)   |
+| COMMENTS DOCS     | [Comments](./docs/comments.md)      |
 
 ## LINK DEPLOYMENT
 ```bash
