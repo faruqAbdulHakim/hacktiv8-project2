@@ -7,7 +7,7 @@ const { User } = require('../models/index');
  */
 async function authMiddleware(req, res, next) {
   try {
-    const token = req.headers['token'];
+    const token = req.headers['authorization'];
     if (!token) throw { name: 'Invalid Token' };
 
     const accessToken = token.split(' ')[1];
