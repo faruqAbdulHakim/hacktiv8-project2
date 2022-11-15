@@ -16,12 +16,17 @@ class PhotoController {
           },
           {
             model: Comment,
+            attributes: ['comment'],
+            include: {
+              model: User,
+              attributes: ['username'],
+            },
           },
         ],
       });
       res.status(200).json({ photos });
     } catch (error) {
-      next(error);
+      console.log(error);
     }
   }
 
