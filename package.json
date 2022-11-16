@@ -7,10 +7,6 @@
     "dev": "nodemon bin/www",
     "start": "node bin/www",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "db:create:perdana": "NODE_ENV=development_perdana npx sequelize db:create",
-    "db:migrate:perdana": "NODE_ENV=development_perdana npx sequelize db:migrate",
-    "db:create:undo:perdana": "NODE_ENV=development_perdana npx sequelize db:drop",
-    "db:migrate:undo:perdana": "NODE_ENV=development_perdana npx sequelize db:migrate:undo:all",
     "db:create:rio": "NODE_ENV=development_rio npx sequelize db:create",
     "db:migrate:rio": "NODE_ENV=development_rio npx sequelize db:migrate"
   },
