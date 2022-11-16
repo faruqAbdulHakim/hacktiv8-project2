@@ -6,13 +6,6 @@
     "host": "localhost",
     "dialect": "postgres"
   },
-  "development_perdana": {
-    "username": "postgres",
-    "password": "postgres",
-    "database": "MyGramDev",
-    "host": "localhost",
-    "dialect": "postgres"
-  },
   "development_rio": {
     "username": "postgres",
     "password": "1234567",
