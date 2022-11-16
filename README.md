@@ -38,5 +38,5 @@ $ npx sequelize db:migrate (to migration table on database)
 
 ## LINK DEPLOYMENT
 ```bash
-https://
+https://mygram-restfull-api.up.railway.app/
 ```
